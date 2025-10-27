@@ -1,0 +1,9 @@
+{
+  "$schema": "https://fumadocs.vercel.app/schema.json",
+  "sources": [
+    {
+      "name": "docs",
+      "path": "content/docs"
+    }
+  ]
+}

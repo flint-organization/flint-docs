@@ -1,0 +1,80 @@
+---
+title: Button
+description: Displays a button or a component that looks like a button
+icon: Hand
+---
+
+# Button
+
+Displays a button or a component that looks like a button.
+
+## Installation
+
+```bash
+npm install @flint-org/ui
+```
+
+## Usage
+
+```tsx
+import { Button } from '@flint-org/ui';
+
+export default function Demo() {
+  return <Button>Click me</Button>;
+}
+```
+
+## Examples
+
+### Variants
+
+```tsx
+<Button variant="default">Default</Button>
+<Button variant="destructive">Destructive</Button>
+<Button variant="outline">Outline</Button>
+<Button variant="secondary">Secondary</Button>
+<Button variant="ghost">Ghost</Button>
+<Button variant="link">Link</Button>
+```
+
+### Sizes
+
+```tsx
+<Button size="sm">Small</Button>
+<Button size="md">Medium</Button>
+<Button size="lg">Large</Button>
+```
+
+### With Icons
+
+```tsx
+import { ArrowRight } from 'lucide-react';
+
+<Button>
+  Get Started
+  <ArrowRight className="ml-2 h-4 w-4" />
+</Button>
+```
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'destructive' \| 'outline' \| 'secondary' \| 'ghost' \| 'link'` | `'default'` | The visual style variant |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | The size of the button |
+| `asChild` | `boolean` | `false` | Render as a child element |
+| `disabled` | `boolean` | `false` | Whether the button is disabled |
+
+## Accessibility
+
+- Supports keyboard navigation
+- Proper ARIA attributes
+- Focus visible indicators
+- Disabled state handling
+
+## Related
+
+- [Card](/docs/components/primitives/card) - Container component
+- [Input](/docs/components/primitives/input) - Text input component

@@ -1,0 +1,96 @@
+---
+title: Quick Start
+description: Get up and running with Flint UI in minutes
+icon: Zap
+---
+
+# Quick Start
+
+This guide will help you get started with Flint UI in just a few minutes.
+
+## 1. Install the Package
+
+```bash
+npm install @flint-org/ui framer-motion tailwindcss
+```
+
+## 2. Import Styles
+
+Add to your root layout or `_app.tsx`:
+
+```tsx
+import '@flint-org/ui/styles';
+```
+
+## 3. Configure Tailwind
+
+Create or update `tailwind.config.js`:
+
+```javascript
+import flintPreset from '@flint-org/ui/preset';
+
+export default {
+  presets: [flintPreset],
+  content: [
+    './app/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './node_modules/@flint-org/ui/dist/**/*.js',
+  ],
+};
+```
+
+## 4. Use Components
+
+```tsx
+import { Button, Card, CardHeader, CardTitle, CardContent } from '@flint-org/ui';
+
+export default function MyPage() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Welcome to Flint UI</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p>Get started with beautiful, accessible components.</p>
+        <Button>Get Started</Button>
+      </CardContent>
+    </Card>
+  );
+}
+```
+
+## Import Strategies
+
+### Optimized Imports (Recommended)
+
+Import only what you need for smaller bundle sizes:
+
+```tsx
+import { Button } from '@flint-org/ui/button';
+import { Card } from '@flint-org/ui/card';
+```
+
+**Bundle size:** ~1-2KB per component
+
+### Convenience Import
+
+Import from the main entry for faster development:
+
+```tsx
+import { Button, Card, Input } from '@flint-org/ui';
+```
+
+**Bundle size:** ~76KB (full library)
+
+## Framework-Specific Guides
+
+- [Next.js App Router](/docs/getting-started/nextjs)
+- [Next.js Pages Router](/docs/getting-started/nextjs)
+- [Vite + React](/docs/getting-started/vite)
+- [Remix](/docs/getting-started/remix)
+
+## Next Steps
+
+- [Explore Components](/docs/components) - Browse all available components
+- [View Live Demo](https://flint-three.vercel.app) - See components in action
+- [Check Storybook](https://flint-organization.github.io/flint-ui) - Interactive examples

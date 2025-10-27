@@ -1,0 +1,73 @@
+---
+title: Installation
+description: How to install @flint-org/ui in your project
+icon: Package
+---
+
+# Installation
+
+Install @flint-org/ui and its peer dependencies:
+
+## Package Manager
+
+<Tabs defaultValue="npm">
+  <TabsList>
+    <TabsTrigger value="npm">npm</TabsTrigger>
+    <TabsTrigger value="pnpm">pnpm</TabsTrigger>
+    <TabsTrigger value="yarn">yarn</TabsTrigger>
+  </TabsList>
+  <TabsContent value="npm">
+    ```bash
+    npm install @flint-org/ui framer-motion tailwindcss
+    ```
+  </TabsContent>
+  <TabsContent value="pnpm">
+    ```bash
+    pnpm add @flint-org/ui framer-motion tailwindcss
+    ```
+  </TabsContent>
+  <TabsContent value="yarn">
+    ```bash
+    yarn add @flint-org/ui framer-motion tailwindcss
+    ```
+  </TabsContent>
+</Tabs>
+
+## Peer Dependencies
+
+The library requires these peer dependencies:
+
+- `react` >= 18.0.0
+- `react-dom` >= 18.0.0
+- `framer-motion` (optional, for animated components)
+- `tailwindcss` >= 3.0.0 (for styling)
+
+## Import Styles
+
+Add the CSS import to your root layout or `_app.tsx`:
+
+```tsx
+import '@flint-org/ui/styles';
+```
+
+## Configure Tailwind (Recommended)
+
+Use our preset for the full experience:
+
+```javascript
+// tailwind.config.js
+import flintPreset from '@flint-org/ui/preset';
+
+export default {
+  presets: [flintPreset],
+  content: [
+    './app/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './node_modules/@flint-org/ui/dist/**/*.js',
+  ],
+};
+```
+
+## Next Steps
+
+Continue to [Quick Start](/docs/getting-started/quick-start) to start using components.
