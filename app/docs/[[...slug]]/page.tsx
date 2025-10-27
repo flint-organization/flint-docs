@@ -25,7 +25,7 @@ export default async function Page(props: {
       toc={page.data.toc}
       full={page.data.full}
       tableOfContent={{
-        enabled: page.data.toc !== false,
+        enabled: page.data.toc.length > 0,
         footer: (
           <Link
             href={githubEditUrl}
