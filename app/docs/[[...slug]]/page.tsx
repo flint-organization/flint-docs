@@ -1,7 +1,9 @@
 import { source } from '@/source';
-import { DocsPage, DocsBody } from 'fumadocs-ui/page';
+import { DocsPage, DocsBody, DocsTitle, DocsDescription } from 'fumadocs-ui/page';
 import { notFound } from 'next/navigation';
 import { useMDXComponents } from '@/mdx-components';
+import { Edit } from 'lucide-react';
+import Link from 'next/link';
 
 export default async function Page(props: {
   params: Promise<{ slug?: string[] }>;
@@ -14,15 +16,34 @@ export default async function Page(props: {
   const Body = page.data.body;
   const components = useMDXComponents({});
 
+  // Generate GitHub edit URL
+  const slugPath = params.slug?.join('/') || 'index';
+  const githubEditUrl = `https://github.com/flint-organization/flint-docs/edit/main/content/docs/${slugPath}.mdx`;
+
   return (
-    <DocsPage>
+    <DocsPage
+      toc={page.data.toc}
+      full={page.data.full}
+      tableOfContent={{
+        enabled: page.data.toc !== false,
+        footer: (
+          <Link
+            href={githubEditUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
+          >
+            <Edit className="h-3.5 w-3.5" />
+            <span>Edit this page</span>
+          </Link>
+        ),
+      }}
+    >
+      <DocsTitle>{page.data.title}</DocsTitle>
+      {page.data.description && (
+        <DocsDescription>{page.data.description}</DocsDescription>
+      )}
       <DocsBody>
-        <h1 className="text-4xl font-bold mb-4">{page.data.title}</h1>
-        {page.data.description && (
-          <p className="text-lg text-muted-foreground mb-8">
-            {page.data.description}
-          </p>
-        )}
         <Body components={components} />
       </DocsBody>
     </DocsPage>

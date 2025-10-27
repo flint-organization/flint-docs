@@ -1,0 +1,12 @@
+{
+  "title": "Animated Components",
+  "pages": [
+    "animated-counter",
+    "scroll-reveal",
+    "tilt-card",
+    "tech-badge",
+    "gradient-background",
+    "code-snippet",
+    "overview"
+  ]
+}

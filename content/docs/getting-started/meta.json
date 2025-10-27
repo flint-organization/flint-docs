@@ -1,4 +1,11 @@
 {
   "title": "Getting Started",
-  "pages": ["installation", "quick-start"]
+  "pages": [
+    "installation",
+    "quick-start",
+    "nextjs",
+    "vite",
+    "remix",
+    "theming"
+  ]
 }

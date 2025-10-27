@@ -1,0 +1,116 @@
+---
+title: Component Name
+description: Brief one-line description of what the component does
+icon: IconName
+---
+
+# Component Name
+
+Brief overview paragraph explaining the component's purpose and use cases.
+
+## Installation
+
+```bash
+npm install @flint-org/ui
+```
+
+## Usage
+
+### Basic Example
+
+```tsx
+import { ComponentName } from '@flint-org/ui';
+
+export default function Demo() {
+  return (
+    <ComponentName>
+      Basic usage example
+    </ComponentName>
+  );
+}
+```
+
+## Examples
+
+### Variants
+
+Show different visual variants if applicable.
+
+```tsx
+<ComponentName variant="default">Default</ComponentName>
+<ComponentName variant="secondary">Secondary</ComponentName>
+<ComponentName variant="outline">Outline</ComponentName>
+```
+
+### Sizes
+
+Show different size options if applicable.
+
+```tsx
+<ComponentName size="sm">Small</ComponentName>
+<ComponentName size="md">Medium</ComponentName>
+<ComponentName size="lg">Large</ComponentName>
+```
+
+### Advanced Usage
+
+Show more complex usage patterns, combinations, or features.
+
+```tsx
+import { ComponentName, RelatedComponent } from '@flint-org/ui';
+
+export default function AdvancedDemo() {
+  return (
+    <RelatedComponent>
+      <ComponentName>
+        Advanced example with composition
+      </ComponentName>
+    </RelatedComponent>
+  );
+}
+```
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'secondary' \| 'outline'` | `'default'` | The visual style variant |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | The size of the component |
+| `disabled` | `boolean` | `false` | Whether the component is disabled |
+| `className` | `string` | - | Additional CSS classes |
+| `children` | `ReactNode` | - | The content of the component |
+
+### Events
+
+| Event | Type | Description |
+|-------|------|-------------|
+| `onClick` | `() => void` | Fired when the component is clicked |
+| `onChange` | `(value: string) => void` | Fired when the value changes |
+
+## Accessibility
+
+- ✅ Keyboard navigation support
+- ✅ Screen reader compatible with proper ARIA labels
+- ✅ Focus indicators for keyboard users
+- ✅ Disabled state properly communicated
+- ✅ WCAG 2.1 AA compliant color contrast
+
+## Animation
+
+This component includes smooth animations powered by Framer Motion:
+- Entry/exit animations
+- Hover effects
+- Focus transitions
+
+## Related Components
+
+- [RelatedComponent](/docs/components/path/related-component) - Brief description
+- [AnotherComponent](/docs/components/path/another-component) - Brief description
+
+## Resources
+
+- [View in Storybook](https://flint-organization.github.io/flint-ui/?path=/story/components-componentname)
+- [View Source on GitHub](https://github.com/flint-organization/flint-ui/blob/main/src/components/ui/component-name.tsx)
+- [Report an Issue](https://github.com/flint-organization/flint-ui/issues/new)

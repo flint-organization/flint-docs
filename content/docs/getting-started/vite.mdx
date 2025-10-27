@@ -1,0 +1,278 @@
+---
+title: Vite Setup
+description: Set up Flint UI in your Vite + React application
+icon: Zap
+---
+
+# Vite Setup
+
+This guide will help you integrate Flint UI into your Vite + React application.
+
+## Prerequisites
+
+- Vite 4+
+- React 18+
+- Node.js 16+
+
+## Installation
+
+Install Flint UI and its peer dependencies:
+
+<Tabs defaultValue="npm">
+  <TabsList>
+    <TabsTrigger value="npm">npm</TabsTrigger>
+    <TabsTrigger value="pnpm">pnpm</TabsTrigger>
+    <TabsTrigger value="yarn">yarn</TabsTrigger>
+  </TabsList>
+  <TabsContent value="npm">
+    ```bash
+    npm install @flint-org/ui framer-motion tailwindcss postcss autoprefixer
+    ```
+  </TabsContent>
+  <TabsContent value="pnpm">
+    ```bash
+    pnpm add @flint-org/ui framer-motion tailwindcss postcss autoprefixer
+    ```
+  </TabsContent>
+  <TabsContent value="yarn">
+    ```bash
+    yarn add @flint-org/ui framer-motion tailwindcss postcss autoprefixer
+    ```
+  </TabsContent>
+</Tabs>
+
+## Setup
+
+### 1. Initialize Tailwind CSS
+
+If you haven't already, initialize Tailwind CSS:
+
+```bash
+npx tailwindcss init -p
+```
+
+### 2. Configure Tailwind CSS
+
+Update your `tailwind.config.js`:
+
+```javascript title="tailwind.config.js"
+import flintPreset from '@flint-org/ui/preset';
+
+export default {
+  presets: [flintPreset],
+  content: [
+    './index.html',
+    './src/**/*.{js,ts,jsx,tsx}',
+    './node_modules/@flint-org/ui/dist/**/*.js',
+  ],
+  darkMode: ['class'],
+};
+```
+
+### 3. Import Styles
+
+Add Flint UI styles to your main entry file:
+
+```tsx title="src/main.tsx"
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import '@flint-org/ui/styles';
+import './index.css';
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+```
+
+### 4. Configure index.css
+
+Make sure your `index.css` includes Tailwind directives:
+
+```css title="src/index.css"
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+### 5. Use Components
+
+```tsx title="src/App.tsx"
+import { Button, Card, CardHeader, CardTitle, CardContent } from '@flint-org/ui';
+
+function App() {
+  return (
+    <div className="container mx-auto p-8">
+      <Card>
+        <CardHeader>
+          <CardTitle>Welcome to Flint UI</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p>Get started with beautiful, accessible components.</p>
+          <Button className="mt-4">Get Started</Button>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+export default App;
+```
+
+## Dark Mode Setup
+
+Install `next-themes` (it works with Vite too!):
+
+```bash
+npm install next-themes
+```
+
+Create a theme provider:
+
+```tsx title="src/components/theme-provider.tsx"
+import { ThemeProvider as NextThemesProvider } from 'next-themes';
+import { type ThemeProviderProps } from 'next-themes/dist/types';
+
+export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
+  return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
+}
+```
+
+Wrap your app with the provider:
+
+```tsx title="src/main.tsx"
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import { ThemeProvider } from './components/theme-provider';
+import '@flint-org/ui/styles';
+import './index.css';
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <App />
+    </ThemeProvider>
+  </React.StrictMode>
+);
+```
+
+Use the theme switcher component:
+
+```tsx title="src/App.tsx"
+import { ThemeSwitcher } from '@flint-org/ui';
+
+function App() {
+  return (
+    <div>
+      <header className="flex justify-end p-4">
+        <ThemeSwitcher />
+      </header>
+      {/* Your app content */}
+    </div>
+  );
+}
+```
+
+## TypeScript Configuration
+
+Ensure your `tsconfig.json` includes:
+
+```json title="tsconfig.json"
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "strict": true
+  },
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
+```
+
+## Optimizing Bundle Size
+
+Vite automatically tree-shakes unused code. Import components normally:
+
+```tsx
+import { Button, Card, Input } from '@flint-org/ui';
+```
+
+To analyze your bundle size:
+
+```bash
+npm install -D vite-bundle-analyzer
+```
+
+```javascript title="vite.config.ts"
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { visualizer } from 'vite-bundle-analyzer';
+
+export default defineConfig({
+  plugins: [
+    react(),
+    visualizer({ open: true }),
+  ],
+});
+```
+
+## Path Aliases
+
+For cleaner imports, configure path aliases:
+
+```typescript title="vite.config.ts"
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
+
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
+});
+```
+
+```json title="tsconfig.json"
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+```
+
+## Next Steps
+
+- [Browse Components](/docs/components) - Explore all available components
+- [Dark Mode Guide](/docs/guides/dark-mode) - Advanced theme customization
+- [Performance Guide](/docs/guides/performance) - Optimize your bundle
+
+## Troubleshooting
+
+### Module resolution errors
+
+Make sure `@flint-org/ui` is installed in your `node_modules` and listed in `dependencies`.
+
+### Styles not applying
+
+Ensure you've imported `@flint-org/ui/styles` before your own CSS and that Tailwind directives are in your `index.css`.
+
+### Build fails
+
+Check that you have `postcss` and `autoprefixer` installed as dev dependencies.

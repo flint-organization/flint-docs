@@ -1,0 +1,16 @@
+{
+  "title": "Composite Components",
+  "pages": [
+    "data-table",
+    "navbar",
+    "sidebar",
+    "pagination",
+    "search-input",
+    "filter-bar",
+    "loading-spinner",
+    "empty-state",
+    "activity-item",
+    "status-badge",
+    "theme-toggle"
+  ]
+}

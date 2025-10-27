@@ -1,0 +1,12 @@
+{
+  "title": "Guides",
+  "pages": [
+    "dark-mode",
+    "customization",
+    "animations",
+    "typescript",
+    "forms",
+    "accessibility",
+    "performance"
+  ]
+}

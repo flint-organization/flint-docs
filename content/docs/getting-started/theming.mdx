@@ -1,0 +1,438 @@
+---
+title: Theming & Customization
+description: Customize Flint UI to match your brand
+icon: Palette
+---
+
+# Theming & Customization
+
+Flint UI is built with customization in mind. You can easily adapt the design system to match your brand using CSS variables, Tailwind configuration, or component-level overrides.
+
+## Using the Tailwind Preset
+
+The easiest way to get started is by using the Flint UI Tailwind preset:
+
+```javascript title="tailwind.config.js"
+import flintPreset from '@flint-org/ui/preset';
+
+export default {
+  presets: [flintPreset],
+  content: [
+    './app/**/*.{ts,tsx}',
+    './node_modules/@flint-org/ui/dist/**/*.js',
+  ],
+};
+```
+
+This preset includes:
+- Complete color system
+- Spacing scale
+- Typography settings
+- Border radius values
+- Animation configs
+
+## CSS Variables
+
+Flint UI uses CSS variables for theming. You can override these in your global CSS:
+
+```css title="globals.css"
+@layer base {
+  :root {
+    /* Primary brand colors */
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    /* Secondary colors */
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    /* Accent colors */
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    /* Background colors */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    /* UI elements */
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    /* Border radius */
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+```
+
+### Color Format
+
+Colors use the HSL format: `hue saturation% lightness%` (without the `hsl()` wrapper).
+
+**Example:**
+- `222.2 47.4% 11.2%` = `hsl(222.2, 47.4%, 11.2%)`
+
+This format allows Tailwind to add opacity modifiers like `bg-primary/50`.
+
+## Creating Custom Color Schemes
+
+### Brand Colors Example
+
+Create a custom color scheme for your brand:
+
+```css title="globals.css"
+:root {
+  /* Purple brand theme */
+  --primary: 263 70% 50%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 263 70% 95%;
+  --secondary-foreground: 263 70% 20%;
+
+  --accent: 23 100% 50%;
+  --accent-foreground: 0 0% 100%;
+}
+
+.dark {
+  --primary: 263 70% 60%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 263 30% 15%;
+  --secondary-foreground: 263 70% 95%;
+
+  --accent: 23 100% 60%;
+  --accent-foreground: 0 0% 100%;
+}
+```
+
+### Using Tailwind Colors
+
+You can also map Tailwind colors to Flint UI variables:
+
+```javascript title="tailwind.config.js"
+import flintPreset from '@flint-org/ui/preset';
+import colors from 'tailwindcss/colors';
+
+export default {
+  presets: [flintPreset],
+  theme: {
+    extend: {
+      colors: {
+        primary: colors.purple,
+        secondary: colors.gray,
+        accent: colors.orange,
+      },
+    },
+  },
+};
+```
+
+Then in your CSS:
+
+```css
+:root {
+  --primary: 263 70% 50%; /* purple-600 */
+  --secondary: 220 14% 96%; /* gray-100 */
+  --accent: 25 95% 53%; /* orange-500 */
+}
+```
+
+## Customizing Components
+
+### Using className
+
+Override component styles using Tailwind classes:
+
+```tsx
+<Button className="bg-purple-600 hover:bg-purple-700">
+  Custom Button
+</Button>
+```
+
+### Component Variants
+
+Extend existing variants:
+
+```tsx
+// Create a custom button variant
+<Button
+  className="bg-gradient-to-r from-purple-600 to-pink-600 text-white"
+>
+  Gradient Button
+</Button>
+```
+
+### Creating a Custom Button Variant
+
+Wrap components to create custom variants:
+
+```tsx title="components/custom-button.tsx"
+import { Button } from '@flint-org/ui';
+import { cn } from '@flint-org/ui/lib/utils';
+
+export function GradientButton({
+  className,
+  ...props
+}: React.ComponentProps<typeof Button>) {
+  return (
+    <Button
+      className={cn(
+        'bg-gradient-to-r from-purple-600 to-pink-600',
+        'hover:from-purple-700 hover:to-pink-700',
+        'text-white border-0',
+        className
+      )}
+      {...props}
+    />
+  );
+}
+```
+
+## Typography Customization
+
+### Font Families
+
+Configure custom fonts in your Tailwind config:
+
+```javascript title="tailwind.config.js"
+import flintPreset from '@flint-org/ui/preset';
+
+export default {
+  presets: [flintPreset],
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        heading: ['Poppins', 'system-ui', 'sans-serif'],
+        mono: ['Fira Code', 'monospace'],
+      },
+    },
+  },
+};
+```
+
+Use in your components:
+
+```tsx
+<h1 className="font-heading">Heading Font</h1>
+<p className="font-sans">Body Font</p>
+<code className="font-mono">Code Font</code>
+```
+
+### Font Sizes
+
+Customize the typography scale:
+
+```javascript title="tailwind.config.js"
+export default {
+  theme: {
+    extend: {
+      fontSize: {
+        'xs': ['0.75rem', { lineHeight: '1rem' }],
+        'sm': ['0.875rem', { lineHeight: '1.25rem' }],
+        'base': ['1rem', { lineHeight: '1.5rem' }],
+        'lg': ['1.125rem', { lineHeight: '1.75rem' }],
+        'xl': ['1.25rem', { lineHeight: '1.75rem' }],
+        '2xl': ['1.5rem', { lineHeight: '2rem' }],
+        '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
+        '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
+      },
+    },
+  },
+};
+```
+
+## Border Radius
+
+Adjust the global border radius:
+
+```css title="globals.css"
+:root {
+  --radius: 0.5rem; /* Default */
+  /* Try different values: */
+  /* --radius: 0rem; */ /* Square corners */
+  /* --radius: 0.25rem; */ /* Subtle */
+  /* --radius: 1rem; */ /* Very rounded */
+}
+```
+
+Or customize per-component:
+
+```tsx
+<Card className="rounded-none"> {/* Square */}
+<Button className="rounded-full"> {/* Pill shape */}
+```
+
+## Animation Customization
+
+### Disabling Animations
+
+Disable all animations globally:
+
+```css title="globals.css"
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+```
+
+### Custom Animation Timings
+
+Adjust Framer Motion animations:
+
+```tsx
+import { Button } from '@flint-org/ui';
+import { motion } from 'framer-motion';
+
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.3, ease: 'easeOut' }}
+>
+  <Button>Animated Button</Button>
+</motion.div>
+```
+
+## Dark Mode
+
+### Using next-themes
+
+```tsx title="app/providers.tsx"
+'use client';
+
+import { ThemeProvider } from 'next-themes';
+
+export function Providers({ children }: { children: React.ReactNode }) {
+  return (
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      {children}
+    </ThemeProvider>
+  );
+}
+```
+
+### Force Dark Mode
+
+```tsx
+<ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark">
+  {children}
+</ThemeProvider>
+```
+
+### Multiple Themes
+
+Create custom theme variants:
+
+```css title="globals.css"
+.theme-purple {
+  --primary: 263 70% 50%;
+  --primary-foreground: 0 0% 100%;
+}
+
+.theme-orange {
+  --primary: 25 95% 53%;
+  --primary-foreground: 0 0% 100%;
+}
+```
+
+```tsx
+<div className="theme-purple">
+  <Button>Purple Theme</Button>
+</div>
+```
+
+## Example: Complete Brand Theme
+
+Here's a complete example of a custom brand theme:
+
+```css title="app/globals.css"
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Acme Corp Brand Colors */
+    --primary: 201 89% 48%; /* Acme Blue */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 262 83% 58%; /* Acme Purple */
+    --secondary-foreground: 0 0% 100%;
+    --accent: 339 90% 51%; /* Acme Pink */
+    --accent-foreground: 0 0% 100%;
+
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 98%;
+    --card-foreground: 222 47% 11%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 201 89% 48%;
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --primary: 201 89% 58%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 262 83% 68%;
+    --secondary-foreground: 0 0% 100%;
+    --accent: 339 90% 61%;
+    --accent-foreground: 0 0% 100%;
+
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 15%;
+    --card-foreground: 210 40% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 201 89% 58%;
+  }
+}
+```
+
+## Resources
+
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [HSL Color Picker](https://hslpicker.com/)
+- [Realtime Colors](https://realtimecolors.com/) - Preview color schemes
+- [Dark Mode Guide](/docs/guides/dark-mode) - Advanced dark mode setup
+
+## Next Steps
+
+- [View Components](/docs/components) - See all customizable components
+- [Customization Guide](/docs/guides/customization) - Advanced techniques
+- [View Examples](/docs/examples) - Real-world themed applications
